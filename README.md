@@ -52,3 +52,7 @@ domain repos      ← fire / grain / coral (+ optional layers)
 pytest
 ruff check src tests
 ```
+
+## License
+
+Apache License 2.0 — see [LICENSE](LICENSE) or [LICENSE.md](LICENSE.md).
