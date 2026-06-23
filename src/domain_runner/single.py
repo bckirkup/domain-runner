@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import time
-from typing import Any
 
 from domain_runner.hooks import DomainHooks
 from domain_runner.layer import SimulationLayer
