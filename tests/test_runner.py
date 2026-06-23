@@ -52,7 +52,9 @@ class _StubHooks:
 
 
 def test_domain_only_layer_runs_adapter_steps() -> None:
-    result = run_simulation(_StubHooks(), DomainOnlyLayer(), RunContext(steps=3, seed=1, domain_config={}))
+    result = run_simulation(
+        _StubHooks(), DomainOnlyLayer(), RunContext(steps=3, seed=1, domain_config={})
+    )
     assert result.steps_completed == 3
     assert result.domain_metrics["steps_run"] == 3
 
