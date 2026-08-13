@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import datetime
 import json
+import os
 from collections.abc import Callable
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
@@ -11,19 +12,13 @@ from typing import Any
 
 from domain_runner.config import deep_merge, load_json
 
-
 RunFn = Callable[[str, dict[str, Any], Path, bool], dict[str, Any]]
 
 
 def resolve_worker_count(requested: int | None, n_jobs: int) -> int:
     if requested is not None and requested > 0:
         return min(requested, n_jobs)
-    try:
-        import os
-
-        return min(os.cpu_count() or 1, n_jobs)
-    except Exception:
-        return 1
+    return min(os.cpu_count() or 1, n_jobs)
 
 
 def run_batch(
@@ -54,7 +49,7 @@ def run_batch(
     default_layer = batch_config.get("layer", defaults.get("layer", "domain_only"))
 
     results: dict[str, Any] = {
-        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
         "output_directory": str(output_dir),
         "layer": default_layer,
         "runs": {},

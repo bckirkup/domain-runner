@@ -11,7 +11,7 @@ def load_json(path: Path | str) -> dict[str, Any]:
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
     if not isinstance(data, dict):
-        raise ValueError(f"Expected JSON object in {path}")
+        raise TypeError(f"Expected JSON object in {path}")
     return data
 
 
