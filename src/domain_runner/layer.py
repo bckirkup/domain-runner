@@ -13,19 +13,19 @@ class SimulationLayer(Protocol):
 
     name: str
 
-    def setup(self, _adapter: Any, _run: RunContext) -> dict[str, Any]:
+    def setup(self, adapter: Any, run: RunContext) -> dict[str, Any]:
         """Initialize layer state before the step loop."""
         raise NotImplementedError
 
-    def step(self, _adapter: Any, _step: int, _layer_state: dict[str, Any]) -> dict[str, Any]:
+    def step(self, adapter: Any, step: int, layer_state: dict[str, Any]) -> dict[str, Any]:
         """Advance one time step; return per-step events for domain metrics hooks."""
         raise NotImplementedError
 
     def finalize(
         self,
-        _adapter: Any,
-        _layer_state: dict[str, Any],
-        _run: RunContext,
+        adapter: Any,
+        layer_state: dict[str, Any],
+        run: RunContext,
     ) -> dict[str, Any]:
         """Return layer-specific summary metrics after the loop."""
         raise NotImplementedError
