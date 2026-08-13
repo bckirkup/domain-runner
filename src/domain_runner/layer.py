@@ -13,19 +13,22 @@ class SimulationLayer(Protocol):
 
     name: str
 
-    def setup(self, adapter: Any, run: RunContext) -> dict[str, Any]:
+    def setup(self, _adapter: Any, _run: RunContext) -> dict[str, Any]:
         """Initialize layer state before the step loop."""
+        raise NotImplementedError
 
-    def step(self, adapter: Any, step: int, layer_state: dict[str, Any]) -> dict[str, Any]:
+    def step(self, _adapter: Any, _step: int, _layer_state: dict[str, Any]) -> dict[str, Any]:
         """Advance one time step; return per-step events for domain metrics hooks."""
+        raise NotImplementedError
 
     def finalize(
         self,
-        adapter: Any,
-        layer_state: dict[str, Any],
-        run: RunContext,
+        _adapter: Any,
+        _layer_state: dict[str, Any],
+        _run: RunContext,
     ) -> dict[str, Any]:
         """Return layer-specific summary metrics after the loop."""
+        raise NotImplementedError
 
 
 class DomainOnlyLayer:
@@ -33,10 +36,10 @@ class DomainOnlyLayer:
 
     name = "domain_only"
 
-    def setup(self, adapter: Any, run: RunContext) -> dict[str, Any]:
+    def setup(self, _adapter: Any, _run: RunContext) -> dict[str, Any]:
         return {}
 
-    def step(self, adapter: Any, step: int, layer_state: dict[str, Any]) -> dict[str, Any]:
+    def step(self, adapter: Any, step: int, _layer_state: dict[str, Any]) -> dict[str, Any]:
         adapter.step(step)
         return {
             "ground_truth_active": adapter.get_ground_truth(step),
@@ -45,8 +48,8 @@ class DomainOnlyLayer:
 
     def finalize(
         self,
-        adapter: Any,
-        layer_state: dict[str, Any],
-        run: RunContext,
+        _adapter: Any,
+        _layer_state: dict[str, Any],
+        _run: RunContext,
     ) -> dict[str, Any]:
         return {}
