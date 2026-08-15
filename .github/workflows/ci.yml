@@ -28,9 +28,9 @@ jobs:
       - name: Install dependencies
         run: uv sync --locked --no-build --no-binary-package domain-runner --extra dev
       - name: Ruff lint
-        run: uv run --no-sync ruff check src/ tests/
+        run: uv run --no-sync --no-build ruff check src/ tests/
       - name: Ruff format check
-        run: uv run --no-sync ruff format --check src/ tests/
+        run: uv run --no-sync --no-build ruff format --check src/ tests/
 
   test:
     runs-on: ubuntu-latest
@@ -52,9 +52,9 @@ jobs:
       - name: Run tests
         run: |
           if [ "${{ matrix.python-version }}" = "3.11" ]; then
-            uv run --no-sync pytest --strict-markers -ra --cov=domain_runner --cov-report=term-missing --cov-report=xml:coverage.xml
+            uv run --no-sync --no-build pytest --strict-markers -ra --cov=domain_runner --cov-report=term-missing --cov-report=xml:coverage.xml
           else
-            uv run --no-sync pytest --strict-markers -ra
+            uv run --no-sync --no-build pytest --strict-markers -ra
           fi
       - name: Upload coverage
         if: matrix.python-version == '3.11'
@@ -64,7 +64,7 @@ jobs:
           path: coverage.xml
           if-no-files-found: error
       - name: Smoke tests
-        run: uv run --no-sync pytest -m smoke --tb=short -q
+        run: uv run --no-sync --no-build pytest -m smoke --tb=short -q
 
   guards:
     name: Sonar mechanical guard
