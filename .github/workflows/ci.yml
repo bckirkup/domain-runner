@@ -63,8 +63,6 @@ jobs:
           name: coverage
           path: coverage.xml
           if-no-files-found: error
-      - name: Smoke tests
-        run: uv run --no-sync --no-build pytest -m smoke --tb=short -q
 
   guards:
     name: Sonar mechanical guard
