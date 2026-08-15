@@ -24,6 +24,7 @@ dependencies = []
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0",
+    "pytest-cov>=6.0",
     "ruff>=0.4",
 ]
 
@@ -41,3 +42,15 @@ testpaths = ["tests"]
 target-version = "py311"
 line-length = 100
 src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "ARG", "C901", "N"]
+ignore = ["E501", "SIM108"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/test_batch.py" = ["ARG001"]  # Callback parameters are required by the batch runner interface.
+"tests/test_runner.py" = ["ARG002"]  # Stub hook parameters are required by the DomainHooks protocol.
+
+[tool.ruff.lint.mccabe]
+# Whole-repository CI ceiling; this value only ratchets downward.
+max-complexity = 10
