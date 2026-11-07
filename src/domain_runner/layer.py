@@ -15,9 +15,11 @@ class SimulationLayer(Protocol):
 
     def setup(self, adapter: Any, run: RunContext) -> dict[str, Any]:
         """Initialize layer state before the step loop."""
+        raise NotImplementedError
 
     def step(self, adapter: Any, step: int, layer_state: dict[str, Any]) -> dict[str, Any]:
         """Advance one time step; return per-step events for domain metrics hooks."""
+        raise NotImplementedError
 
     def finalize(
         self,
@@ -26,6 +28,7 @@ class SimulationLayer(Protocol):
         run: RunContext,
     ) -> dict[str, Any]:
         """Return layer-specific summary metrics after the loop."""
+        raise NotImplementedError
 
 
 class DomainOnlyLayer:

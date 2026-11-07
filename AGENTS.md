@@ -11,9 +11,15 @@ No TattleTots dependency — optional layers (e.g. `TattleTotsLayer`) plug in vi
 pip install -e ".[dev]"
 ```
 
+## Before Editing
+- Read `.agents/skills/sonar-quality/SKILL.md` before writing or changing code.
+
 ## Validation Commands
 
 ```bash
+pre-commit run --all-files
+python scripts/sonar_guard.py src tests
+python scripts/sonar_guard.py --workflows .github/workflows
 ruff check src/ tests/
 ruff format --check src/ tests/
 pytest

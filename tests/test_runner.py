@@ -33,22 +33,22 @@ class _StubHooks:
         return _StubAdapter()
 
     def print_header(self, adapter, run) -> None:
-        pass  # Stub hook: no console output in unit tests.
+        pass  # Stub hook: the test runner does not emit a header.
 
     def on_step(self, adapter, step, layer_events) -> None:
-        pass  # Stub hook: step callbacks not exercised in this test.
+        pass  # Stub hook: per-step output is not needed for this test.
 
     def should_stop(self, adapter, step, layer_events) -> bool:
         return False
 
     def print_step(self, adapter, step, layer_events, *, verbose) -> None:
-        pass  # Stub hook: no per-step logging in unit tests.
+        pass  # Stub hook: the test runner does not print step progress.
 
     def summarize(self, adapter, layer_metrics):
         return {"steps_run": len(adapter.steps)}
 
     def write_output(self, result, path) -> None:
-        pass  # Stub hook: output persistence not exercised in this test.
+        pass  # Stub hook: output persistence is not exercised in this test.
 
 
 def test_domain_only_layer_runs_adapter_steps() -> None:
